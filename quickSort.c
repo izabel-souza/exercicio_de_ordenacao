@@ -18,7 +18,7 @@ int main (void) {
     atribuicao_vetor(n, vet);
     printf("Vetor Original: \n");
     impressao(n, vet);
-    bolha(n, vet);
+    rapida(n, vet);
     printf("Vetor Ordenado com Quick Sort: \n");
     impressao(n, vet);
     
@@ -48,5 +48,24 @@ void impressao(int n, int *vetor) {
 }
 
 void rapida(int n, int *vetor) {
-    
+
+   if(n > 1) {
+    int x = vetor[0], a = 1, b = n - 1;
+    do {
+        while((a < n) && (vetor[a] <= x)) { a++; }
+        while(vetor[b] > x) { b--; }
+        if(a < b) {
+            int temp = vetor[a];
+            vetor[a] = vetor[b];
+            vetor[b] = temp;
+            a++, b--;
+        }
+    } while(a <= b);
+
+    vetor[0] = vetor[b];
+    vetor[b] = x;
+
+    rapida(b, vetor);
+    rapida(n-a, &vetor[a]);
+   }
 }
